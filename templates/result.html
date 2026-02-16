@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Result - Our Server</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: #ccc;
+        }
+        
+        .result-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+        }
+        
+        .sentiment {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .sentiment.positive {
+            color: #10b981;
+        }
+        
+        .sentiment.negative {
+            color: #ef4444;
+        }
+        
+        .confidence {
+            font-size: 1.5rem;
+            color: #00d4ff;
+            margin-bottom: 30px;
+        }
+        
+        .text-box {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+        
+        .text-box h3 {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        
+        .text-box p {
+            color: #fff;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(90deg, #00d4ff, #7c3aed);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>📊 Analysis Result</h1>
+            
+            <div class="result-icon">
+                {% if sentiment == 'positive' %}
+                    😊
+                {% else %}
+                    😞
+                {% endif %}
+            </div>
+            
+            <div class="sentiment {{ sentiment }}">
+                {{ sentiment|upper }}
+            </div>
+            
+            <div class="confidence">
+                Confidence: {{ confidence }}
+            </div>
+            
+            <div class="text-box">
+                <h3>Analyzed Text:</h3>
+                <p>{{ text }}</p>
+            </div>
+            
+            <a href="/" class="btn">🔄 Analyze More</a>
+            <a href="/history" class="btn btn-secondary">📜 History</a>
+        </div>
+    </div>
+</body>
+</html>
+

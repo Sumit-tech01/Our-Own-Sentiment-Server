@@ -1,0 +1,6 @@
+{
+  "model_type": "TF-IDF + Logistic Regression",
+  "training_samples": 70,
+  "version": "1.0.0",
+  "description": "Our own custom sentiment model"
+}

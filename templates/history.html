@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History - Our Server</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #fff;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #00d4ff, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        th {
+            color: #888;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+        
+        .sentiment {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        
+        .sentiment.positive {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+        
+        .sentiment.negative {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+        
+        .text-preview {
+            max-width: 300px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: #ccc;
+        }
+        
+        .timestamp {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .confidence {
+            color: #00d4ff;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: linear-gradient(90deg, #00d4ff, #7c3aed);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 50px;
+            color: #666;
+        }
+        
+        .empty-state h2 {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📜 Prediction History</h1>
+            <p style="color: #888;">View your past sentiment predictions</p>
+        </header>
+        
+        <div class="card">
+            {% if predictions %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Text</th>
+                        <th>Sentiment</th>
+                        <th>Confidence</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pred in predictions|reverse %}
+                    <tr>
+                        <td class="timestamp">{{ pred.timestamp }}</td>
+                        <td class="text-preview" title="{{ pred.text }}">{{ pred.text }}</td>
+                        <td>
+                            <span class="sentiment {{ pred.sentiment }}">
+                                {{ pred.sentiment|upper }}
+                            </span>
+                        </td>
+                        <td class="confidence">{{ pred.confidence }}%</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div class="empty-state">
+                <h2>No predictions yet</h2>
+                <p>Start analyzing text to see your history here!</p>
+            </div>
+            {% endif %}
+        </div>
+        
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="/" class="btn">🏠 Go Home</a>
+        </div>
+    </div>
+</body>
+</html>
+
